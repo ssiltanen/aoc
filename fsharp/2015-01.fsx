@@ -1,4 +1,4 @@
-let input = (System.IO.File.ReadAllText "../inputs/2015-01.txt").Trim()
+let input = System.IO.File.ReadAllText "../inputs/2015-01.txt"
 
 input
 |> Seq.sumBy (fun c -> if c = '(' then 1 else -1)

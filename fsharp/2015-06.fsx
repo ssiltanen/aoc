@@ -1,6 +1,7 @@
 let input = System.IO.File.ReadAllLines "../inputs/2015-06.txt"
 
 let lights1 = Array2D.create 1000 1000 false
+let lights2 = Array2D.create 1000 1000 0
 
 let getCoords (row: string) =
     let numbers =
@@ -24,17 +25,13 @@ input
         let onOrOff = if row.StartsWith "turn on" then true else false
         coords |> List.iter (fun (x, y) -> Array2D.set lights1 x y onOrOff))
 
-let mutable part1 = 0
-
-Array2D.iter
-    (fun light ->
-        if light then
-            part1 <- part1 + 1)
-    lights1
-
-printfn "2015-06/1: %i" part1
-
-let lights2 = Array2D.create 1000 1000 0
+seq {
+    for light in lights1 do
+        yield unbox light
+}
+|> Seq.filter id
+|> Seq.length
+|> printfn "2015-06/1: %i"
 
 input
 |> Array.iter (fun row ->
@@ -48,8 +45,9 @@ input
         System.Math.Max(0, Array2D.get lights2 x y + adjustment)
         |> Array2D.set lights2 x y))
 
-let mutable part2 = 0
-
-Array2D.iter (fun brightness -> part2 <- part2 + brightness) lights2
-
-printfn "2015-06/2: %i" part2
+seq {
+    for light in lights2 do
+        yield unbox light
+}
+|> Seq.sum
+|> printfn "2015-06/2: %i"

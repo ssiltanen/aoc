@@ -1,4 +1,4 @@
-let input = (System.IO.File.ReadAllText "../inputs/2015-04.txt").Trim()
+let input = System.IO.File.ReadAllText "../inputs/2015-04.txt"
 
 let md5 = System.Security.Cryptography.MD5.Create()
 
